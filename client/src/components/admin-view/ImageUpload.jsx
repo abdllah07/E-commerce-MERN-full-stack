@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react"
 import { Button } from "../ui/button";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
+import PropTypes from "prop-types";
 
 function ImageUpload({
     imageFile ,
@@ -11,6 +12,7 @@ function ImageUpload({
     setUploadedImageUrl,
     setImageLoadingState,
     imageLoadingState,
+    isEditMode,
 }) {
 
     const inputRef = useRef(null)
@@ -60,11 +62,11 @@ function ImageUpload({
         <div className="w-full max-w-md mx-auto mt-4">
             <label className="text-lg  font-semibold mb-2 block">Upload Image </label>
 
-            <div onDragOver={handleDragOver} onDrop={handleDrop} className="border-2 border-dashed rounded-lg p-4 ">
-                <input type="file" id = "image-upload" className="hidden"  ref = {inputRef} onChange = {handleImageFileChange}/>
+            <div onDragOver={handleDragOver} onDrop={handleDrop} className={`${isEditMode ? 'opacity-5' : ''}border-2 border-dashed rounded-lg p-4 `}>
+                <input type="file" disabled={isEditMode} id = "image-upload" className="hidden"  ref = {inputRef} onChange = {handleImageFileChange}/>
                 {
                     !imageFile ?( 
-                    <label htmlFor="image-upload" className="flex  flex-col items-center justify-center h-32 cursor-pointer">
+                    <label htmlFor="image-upload" className={`${isEditMode ? "cursor-not-allowed" : ""} flex flex-col items-center justify-center h-32 cursor-pointer`}>
                         <UploadCloudIcon className="2-10 h-10 text-muted-foreground mb-2"/>
                         <span>Drag & drop or click to upload image</span>
                     </label> 
@@ -87,5 +89,13 @@ function ImageUpload({
         </div>
     )
 }
-
+ImageUpload.propTypes = {
+    imageFile: PropTypes.instanceOf(File),
+    setImageFile: PropTypes.func,
+    uploadedImageUrl: PropTypes.string,
+    setUploadedImageUrl: PropTypes.func,
+    setImageLoadingState: PropTypes.func,
+    imageLoadingState: PropTypes.bool,
+    isEditMod : PropTypes.any,
+};
 export default ImageUpload

@@ -1,7 +1,14 @@
 import { Button } from "../ui/button"
 import { Card, CardContent, CardFooter } from "../ui/card"
+import PropTypes from "prop-types";
 
-function ProductTile({product}) {
+function ProductTile({
+  product,
+  setCurrentEditId,
+  setOpenCreateProductDialog,
+  setFormData,
+  handleDeleteProduct,
+}) {
   return (
     <Card className="w-full max-w-sm mx-auto">
         <div>
@@ -25,15 +32,33 @@ function ProductTile({product}) {
                   }
 
                 </div>
-            </CardContent>
+            </CardContent>  
             <CardFooter className="flex justify-between items-center ">
-              <Button>Edit</Button>
-              <Button>Delete</Button>
+              <Button onClick = {()=> {
+                setOpenCreateProductDialog(true); 
+                setCurrentEditId(product?._id);
+                setFormData(product)
+              }}>Edit</Button>
+              <Button onClick = {() => handleDeleteProduct(product?._id)}>Delete</Button>
 
             </CardFooter>
         </div>
     </Card>
   )
 }
+ProductTile.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    image: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    salePrice: PropTypes.number,
+  }),
+  setCurrentEditId: PropTypes.func,
+  currentEditId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  setOpenCreateProductDialog: PropTypes.func,
+  setFormData: PropTypes.func,
+  handleDeleteProduct: PropTypes.func,
 
+};
 export default ProductTile
