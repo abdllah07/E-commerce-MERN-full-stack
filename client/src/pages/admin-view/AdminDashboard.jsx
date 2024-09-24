@@ -1,7 +1,7 @@
 
 function AdminDashboard() {
     return (
-        <div>AdminDashboard</div>
+        <div className="w-full">AdminDashboard</div>
     )
 }
 
