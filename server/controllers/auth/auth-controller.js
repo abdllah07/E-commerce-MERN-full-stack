@@ -46,7 +46,7 @@ const loginUser = async(req, res) => {
 
         // Create a JWT token with user info (id, role, and email)
         const token = jwt.sign({
-            id: checkUser._id, role: checkUser.role, email: checkUser.email
+            id: checkUser._id, role: checkUser.role, email: checkUser.email , userName : checkUser.userName
         }, 'CLIENT_SECRET_KEY', { expiresIn: '60min' }); // Token expires in 60 minutes
 
         // Send the JWT token as an HTTP-only cookie and respond with success message
@@ -56,7 +56,8 @@ const loginUser = async(req, res) => {
             user: {
                 email: checkUser.email,
                 role: checkUser.role,
-                id: checkUser._id
+                id: checkUser._id,
+                userName : checkUser.userName,
             }
         });
         

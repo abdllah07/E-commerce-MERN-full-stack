@@ -5,11 +5,11 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 
 import PropTypes from "prop-types";
 
-function ShoppingProductTile({product}) {
+function ShoppingProductTile({product , handleGetProductDetails}) {
     return (
         <Card className="w-full max-w-sm mx-auto ">
 
-            <div className="">
+            <div className="" onClick ={()=> handleGetProductDetails(product?._id)}>
                 <div className="relative">
                     <img src={product?.image} alt={product?.title} className="w-full h-[300px] object-cover rounded-t-lg" />
                     {
@@ -46,7 +46,8 @@ function ShoppingProductTile({product}) {
 }
 
 ShoppingProductTile.propTypes = {
-    product: PropTypes.object
+    product: PropTypes.object,
+    handleGetProductDetails : PropTypes.func,
 }
 
 export default ShoppingProductTile

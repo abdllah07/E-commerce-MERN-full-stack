@@ -1,4 +1,7 @@
+
+// admin 
 const express = require('express');
+
 
 
 const {handleImageUpload , addProduct , editProduct , deleteProduct , fetchAllProduct} = require('../../controllers/admin/productsController');

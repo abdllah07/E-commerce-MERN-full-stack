@@ -11,7 +11,7 @@ function ProductTile({
 }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-        <div>
+        <div >
 
           <div className="relative">
             <img 
