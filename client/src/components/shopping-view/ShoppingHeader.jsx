@@ -7,6 +7,9 @@ import { shoppingViewHeaderMenuItems } from "@/config"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "../ui/avatar"
 import { logoutUser } from "@/store/auth-slice"
+import CartWrapper from "./CartWrapper"
+import { useEffect, useState } from "react"
+import { fetchCartItems } from "@/store/shop/cartSlice"
 
 
 function MenuItems (){
@@ -19,20 +22,31 @@ function MenuItems (){
 
 
 function HeaderRightContent(){
+
     const {  user} = useSelector(state=> state.auth);   
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [openCartSheet, setOpenCartSheet] = useState(false)
+    const { cartItems } = useSelector(state => state.shopCart) // Get cart items from store
+
+    useEffect(() => {
+        dispatch(fetchCartItems({userId : user?.id}))
+    } , [dispatch, user?.id])
 
     function handleLogout(){
         dispatch(logoutUser())
     }
 
-    return <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-        <Button variant="outline" size="icon">
-            <ShoppingCart className="w-6 h-6"/>
-            <span className="sr-only">User Cart</span>
 
-        </Button>
+    return <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+        <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+            <Button variant="outline" size="icon" onClick={() => setOpenCartSheet(true)}>
+                <ShoppingCart className="w-6 h-6"/>
+                <span className="sr-only">User Cart</span>
+            </Button>
+            <CartWrapper  cartItems = {cartItems && cartItems?.items?.length > 0 ? cartItems?.items : [] }/>
+
+        </Sheet>
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Avatar className="bg-black ">
@@ -88,7 +102,6 @@ function ShoppingHeader() {
             <div className="hidden lg:block ">
                 <MenuItems/>
                 </div>
-           
                     <div className="hidden lg:block">
                         <HeaderRightContent/>
                     </div>

@@ -5,7 +5,8 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 
 import PropTypes from "prop-types";
 
-function ShoppingProductTile({product , handleGetProductDetails}) {
+function ShoppingProductTile({product , handleGetProductDetails , handleAddToCart}) {
+
     return (
         <Card className="w-full max-w-sm mx-auto ">
 
@@ -33,14 +34,13 @@ function ShoppingProductTile({product , handleGetProductDetails}) {
                     </div>
 
                 </CardContent>
-                <CardFooter>
-                    <Button className="w-full">
+            </div>
+            <CardFooter>
+                    <Button className="w-full" onClick = {() => handleAddToCart(product?._id)}>
                             Add To Cart
                     </Button>
 
                 </CardFooter>
-            </div>
-
         </Card>
     )
 }
@@ -48,6 +48,7 @@ function ShoppingProductTile({product , handleGetProductDetails}) {
 ShoppingProductTile.propTypes = {
     product: PropTypes.object,
     handleGetProductDetails : PropTypes.func,
+    handleAddToCart : PropTypes.func
 }
 
 export default ShoppingProductTile

@@ -1,5 +1,5 @@
 
-// shop
+// shop product
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
@@ -22,27 +22,17 @@ export const fetchAllFilteredProducts = createAsyncThunk('/products/fetchAllProd
     return result?.data;
 })
 
-// export const fetchProductDetails = createAsyncThunk('/products/fetchAProductDetails' ,async (id) => {
 
-//     console.log(id , "id")
-//     const result = await axios.get(`http://localhost:5000/api/shop/products/get/${id}`);
 
-//     console.log(result?.data , "result?.data");
+export const fetchProductDetails = createAsyncThunk(
+    "/products/fetchProductDetails",
+    async (id) => {
+    const result = await axios.get(
+        `http://localhost:5000/api/shop/products/get/${id}`
+    );
 
-//     return result?.data;
-// })
-
-    export const fetchProductDetails = createAsyncThunk(
-        "/products/fetchProductDetails",
-        async (id) => {
-        const result = await axios.get(
-            `http://localhost:5000/api/shop/products/get/${id}`
-        );
-    
-        return result?.data;
-        });
-
-  
+    return result?.data;
+    });
 
 
 
