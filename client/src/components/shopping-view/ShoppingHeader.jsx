@@ -13,9 +13,21 @@ import { fetchCartItems } from "@/store/shop/cartSlice"
 
 
 function MenuItems (){
+    const navigate = useNavigate();
+
+    function handleNavigateToListingPage(getCurrentMenuItem){
+        sessionStorage.removeItem('filters');
+        const currentFilter = getCurrentMenuItem.id !== 'home' ? {
+            category: [getCurrentMenuItem.id], 
+        } : null
+
+        sessionStorage.setItem('filters' , JSON.stringify(currentFilter));
+        navigate(getCurrentMenuItem.path)
+    }
+
     return <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
         {
-            shoppingViewHeaderMenuItems.map(menuItem => <Link className="text-sm font-medium" key = {menuItem.id} to={menuItem.path}>{menuItem.label}</Link>)
+            shoppingViewHeaderMenuItems.map(menuItem => <label className="text-sm font-medium cursor-pointer" onClick={() => handleNavigateToListingPage(menuItem) } key = {menuItem.id}>{menuItem.label}</label>)
         }
     </nav>
 }
@@ -38,7 +50,7 @@ function HeaderRightContent(){
     }
 
 
-    return <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+    return <div className="sticky flex lg:items-center lg:flex-row flex-col gap-4">
         <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
             <Button variant="outline" size="icon" onClick={() => setOpenCartSheet(true)}>
                 <ShoppingCart className="w-6 h-6"/>
@@ -75,11 +87,7 @@ function HeaderRightContent(){
 }
 function ShoppingHeader() {
 
-
-    const {isAuthenticated } = useSelector(state=> state.auth);   
-    
-
-    return <header className="sticky top-0 <-40 w-full border-b bg-background">
+    return <header className="sticky top-0 w-full border-b bg-background">
         <div className="flex h-16 items-center justify-between px-4 md:px-6">
             <Link to ="/shopping/home" className="flex items-center gap-2">
                 <HousePlug className="h-6 w-6"/>

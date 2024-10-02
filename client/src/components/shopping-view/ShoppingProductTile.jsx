@@ -41,6 +41,7 @@ function ShoppingProductTile({product , handleGetProductDetails , handleAddToCar
                     </Button>
 
                 </CardFooter>
+                
         </Card>
     )
 }

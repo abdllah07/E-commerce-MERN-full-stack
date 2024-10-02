@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "../ui/dialog"; // Assuming these come from Radix UI
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { StarIcon } from "lucide-react";
@@ -8,29 +8,35 @@ import { Input } from "../ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, fetchCartItems } from "@/store/shop/cartSlice";
 import { useToast } from "@/hooks/use-toast";
+import { setProductDetails } from "@/store/shop/productSlice";
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.auth) // Get logged-in user data
     const {toast} = useToast();
 
-        // Handle adding product to the cart
-        function handleAddToCart(getCurrentProductId) {
-            dispatch(addToCart({userId : user.id , productId : getCurrentProductId , quantity : 1 }))
-            .then((data) => {
-                if(data?.payload?.success){ // If product is added successfully
-                    dispatch(fetchCartItems({userId : user?.id})) // Fetch updated cart items
-                    toast({
-                        title : "Product added to cart successfully",
-                        variant :'success'
-                    })
-                }
-            })
-        }
+    // Handle adding product to the cart
+    function handleAddToCart(getCurrentProductId) {
+        dispatch(addToCart({userId : user.id , productId : getCurrentProductId , quantity : 1 }))
+        .then((data) => {
+            if(data?.payload?.success){ // If product is added successfully
+                dispatch(fetchCartItems({userId : user?.id})) // Fetch updated cart items
+                toast({
+                    title : "Product added to cart successfully",
+                    variant :'success'
+                })
+            }
+        })
+    };
+    
+    function  handleDialogClose() {
+        setOpen(false);
+        dispatch(setProductDetails())
+    }
 
 
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    return (
+    <Dialog open={open} onOpenChange={handleDialogClose} >
         <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
             {/* Product Image */}
             <div className="relative overflow-hidden rounded-lg">
