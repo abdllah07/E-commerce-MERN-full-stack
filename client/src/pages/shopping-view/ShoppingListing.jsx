@@ -33,6 +33,7 @@ function ShoppingListing() {
     const [searchParams , setSearchParams] = useSearchParams();
     const [openProductDetailsDialog, setOpenProductDetailsDialog] = useState(false);
     const {toast} = useToast();
+    const categorySearchParam = searchParams.get('category');
 
     // Redux store data
     const {user} = useSelector(state => state.auth) // Get logged-in user data
@@ -98,7 +99,7 @@ function ShoppingListing() {
     useEffect(() => {
         setSort('price-lowtohigh'); // Set default sort option
         setFilters(JSON.parse(sessionStorage.getItem('filters')) || {}); // Get filters from sessionStorage
-    }, []);
+    }, [categorySearchParam]);
 
     // Update searchParams in the URL whenever filters change
     useEffect(() => {

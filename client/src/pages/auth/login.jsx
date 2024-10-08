@@ -2,6 +2,7 @@ import Form from "@/components/common/form";
 import { loginFormControls, registerFormControls } from "@/config";
 import { useToast } from "@/hooks/use-toast";
 import { loginUser } from "@/store/auth-slice";
+import { KeyRound, LogIn } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {  Link } from "react-router-dom";
@@ -41,10 +42,14 @@ export default function AuthLogin() {
 
     return (
         <div className="mx-auto w-full max-w-md space-y-6">
+            <div className="flex items-center justify-center">
+                <LogIn className="w-20 h-20 text-purple-950 animate-fade-in-up" />
+            </div>
         <div className="text-center">
             <h1 className="text-3xl font-bold tracking-tighter text-foreground">Sign In to your account </h1>
+          
             <p className="mt-2">Don't have an account ?  
-            <Link className="font-medium text-primary hover:underline" to="/auth/register"> Register</Link>
+                <Link className="font-medium text-primary hover:underline" to="/auth/register"> Register</Link>
             </p>
         </div>
 
@@ -54,7 +59,8 @@ export default function AuthLogin() {
             formData={formData}
             setFormData={setFormData}
             onSubmit={OnSubmit}
+            icon={<KeyRound />}
         />
-</div>
+    </div>
     )
 }

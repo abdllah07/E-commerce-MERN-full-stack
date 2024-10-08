@@ -13,6 +13,7 @@ function ImageUpload({
     setImageLoadingState,
     imageLoadingState,
     isEditMode,
+    isCustomStyling = false,
 }) {
 
     const inputRef = useRef(null)
@@ -59,7 +60,7 @@ function ImageUpload({
 
 
     return (
-        <div className="w-full max-w-md mx-auto mt-4">
+        <div className={`${isCustomStyling ? '' : 'max-w-md mx-auto'} w-full  mt-4`}>
             <label className="text-lg  font-semibold mb-2 block">Upload Image </label>
 
             <div onDragOver={handleDragOver} onDrop={handleDrop} className={`${isEditMode ? 'opacity-5' : ''}border-2 border-dashed rounded-lg p-4 `}>

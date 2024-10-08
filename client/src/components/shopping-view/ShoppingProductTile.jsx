@@ -4,11 +4,12 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card"
 
 import PropTypes from "prop-types";
+import { CirclePlus } from "lucide-react";
 
 function ShoppingProductTile({product , handleGetProductDetails , handleAddToCart}) {
 
     return (
-        <Card className="w-full max-w-sm mx-auto ">
+        <Card className="w-full max-w-sm mx-auto  duration-500 hover:bg-gray-100  shadow-lg hover:-translate-y-3 cursor-pointer">
 
             <div className="" onClick ={()=> handleGetProductDetails(product?._id)}>
                 <div className="relative">
@@ -36,10 +37,11 @@ function ShoppingProductTile({product , handleGetProductDetails , handleAddToCar
                 </CardContent>
             </div>
             <CardFooter>
-                    <Button className="w-full" onClick = {() => handleAddToCart(product?._id)}>
+                    <Button className="w-full hover:bg-green-950 duration-500" onClick = {() => handleAddToCart(product?._id)}>
                             Add To Cart
+                            <CirclePlus className="ml-4 text-white " />
                     </Button>
-
+                  
                 </CardFooter>
                 
         </Card>

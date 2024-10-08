@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 
-function Form({ formControls, formData, setFormData, onSubmit, buttonText, isBtnDisabled }) {
+function Form({ formControls, formData, setFormData, onSubmit, buttonText, isBtnDisabled , icon }) {
 
     function renderInputsByComponentType(getControlItem) {
         let element = null;
@@ -76,7 +76,7 @@ function Form({ formControls, formData, setFormData, onSubmit, buttonText, isBtn
 
 return (
     <form onSubmit={onSubmit}>
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
         {formControls?.map((controlItem) => (
         <div className="grid w-full gap-1.5" key={controlItem.name}>
             <label className="mb-1">{controlItem.label}</label>
@@ -86,8 +86,9 @@ return (
     </div>
 
     {/* the disabled is not work correctly  */}
-    <Button  type="submit" className="w-full mt-2">
+    <Button  type="submit" className="w-full mt-2 animate-fade-in" disabled = {isBtnDisabled}>
         {buttonText || 'Submit'}
+        <span className='ml-4'> {icon}</span>
     </Button>
     </form>
 );
