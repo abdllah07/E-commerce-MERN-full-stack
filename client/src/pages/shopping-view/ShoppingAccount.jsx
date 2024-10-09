@@ -9,7 +9,7 @@ function ShoppingAccount() {
         <div className="relative h-[300px] w-full overflow-hidden">
             <img
                 alt='Account'
-                src={accImg}
+                src={'https://st4.depositphotos.com/24244980/26780/i/450/depositphotos_267805462-stock-photo-account-modern-flat-design-blue.jpg'}
                 className='h-full w-full object-cover overflow-hidden'
             />
         </div>

@@ -3,6 +3,7 @@ import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet"
 import PropTypes from "prop-types";
 import CartItemsContent from "./CartItemsContent";
 import { useNavigate } from "react-router-dom";
+import { CheckCheck } from "lucide-react";
 
 function CartWrapper({cartItems , setOpenCartSheet}) {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ function CartWrapper({cartItems , setOpenCartSheet}) {
     ) * item?.quantity  , 0 ) : 0
     return (
         <SheetContent className ="sm:max-w-md ">
+            
             <SheetHeader>
                 <SheetTitle>Your Cart</SheetTitle>
             </SheetHeader>
@@ -31,7 +33,7 @@ function CartWrapper({cartItems , setOpenCartSheet}) {
             <Button className="w-full mt-6" onClick = {()=> {
                 navigate('/shopping/checkout');
                 setOpenCartSheet(false);
-            }}>Check Out</Button>
+            }}><CheckCheck className="mr-2"/> Check Out</Button>
         </SheetContent>
     )
 }
