@@ -20,6 +20,7 @@ import { checkAuth } from "./store/auth-slice";
 import Orders from "./pages/admin-view/Orders";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import ShoppingSearch from "./pages/shopping-view/ShoppingSearch";
+import AdminClothes from "./pages/admin-view/AdminClothes";
 
 function App() {
   const { isAuthenticated, user, isLoading } = useSelector((state) => state.auth);
@@ -73,6 +74,8 @@ function App() {
           <Route path="features" element={<AdminFeatures />} />
           <Route path="orders" element={<Orders />} />
           <Route path="products" element={<AdminProducts />} />
+          <Route path="clothes" element={<AdminClothes />} />
+
         </Route>
 
         {/* Shopping */}

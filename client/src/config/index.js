@@ -103,6 +103,33 @@ export const addProductFormElements = [
     type: "number",
     placeholder: "Enter total stock",
     },
+    {
+      label: "IsBestSelling",
+      name: "isBestSelling",
+      componentType: "select",
+      options: [
+          { id: "true", label: "Yes" },
+          { id: "false", label: "No" },
+      ],
+    }, 
+    {
+        label: "IsAdvantageous",
+        name: "isAdvantageous",
+        componentType: "select",
+        options: [
+            { id: "true", label: "Yes" },
+            { id: "false", label: "No" },
+        ],
+    },
+];
+export const addClothesCategoryFormElements = [
+  {
+  label: "Title",
+  name: "title",
+  componentType: "input",
+  type: "text",
+  placeholder: "Enter product title",
+  },
 ];
 
 export const shoppingViewHeaderMenuItems = [
@@ -172,6 +199,11 @@ category: [
     { id: "kids", label: "Kids" },
     { id: "accessories", label: "Accessories" },
     { id: "footwear", label: "Footwear" },
+    { id: "electronics", label: "Electronics" },
+    { id: "home", label: "Home" },
+    { id: "sports", label: "Sports" },
+    { id: "furniture", label: "Furniture" },
+    { id: "groceries", label: "Groceries" },
 ],
 brand: [
     { id: "nike", label: "Nike" },
@@ -180,6 +212,16 @@ brand: [
     { id: "levi", label: "Levi's" },
     { id: "zara", label: "Zara" },
     { id: "h&m", label: "H&M" },
+    { id: "gucci", label: "Gucci" },
+    { id: "prada", label: "Prada"},
+    { id: "versace", label: "Versace" },
+    { id: "ralph-lauren", label: "Ralph Lauren" },
+    { id: "uniqlo", label: "Uniqlo" },
+    { id: "under-armour", label: "Under Armour" },
+    { id: "new-balance", label: "New Balance"  },
+    { id: "tommy-hilfiger", label: "Tommy Hilfiger" },
+    { id: "burberry", label: "Burberry" },
+    { id: "calvin-klein", label: "Calvin Klein" }
 ],
 };
 
@@ -226,9 +268,6 @@ export const addressFormControls = [
     placeholder: "Enter any additional notes",
 },
 ];
-
-
-
 
 export const BestSellingProductsItems = [
     {
@@ -359,6 +398,7 @@ export const BestSellingProductsItems = [
       offer: "Save $100",
     },
 ];
+
 export const AdvantageousProductsItems = [
     {
       id: 1,
@@ -490,5 +530,5 @@ export const AdvantageousProductsItems = [
       badge: "Pro Gamer",
       offer: "Save $20",
     },
-  ];
+];
   

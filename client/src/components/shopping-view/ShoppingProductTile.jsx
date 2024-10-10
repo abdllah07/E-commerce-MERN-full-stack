@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card"
 
 import PropTypes from "prop-types";
-import { BugPlay, CircleDollarSign, CirclePlus, Heart, Link, Zap } from "lucide-react";
+import {  CircleDollarSign, CirclePlus, Heart, Link, Zap } from "lucide-react";
 
 function ShoppingProductTile({product , handleGetProductDetails , handleAddToCart}) {
 

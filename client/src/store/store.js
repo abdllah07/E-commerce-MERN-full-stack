@@ -8,6 +8,8 @@ import shopSearchSlice from './shop/SearchSlice'
 import shopReviewsSlice from './shop/reviewSlice'
 import commonSlice from './commonSlice'
 
+import adminClothesCategorySlice from './admin/clothesCategories'
+
 const store = configureStore({
     reducer : {
         auth : authReducer,
@@ -17,7 +19,8 @@ const store = configureStore({
         shopAddress : shopAddressSlice,
         shopSearch :shopSearchSlice,
         shopReview : shopReviewsSlice,
-        commonFeature : commonSlice
+        commonFeature : commonSlice,
+        clothesCategory : adminClothesCategorySlice 
     }
 });
 

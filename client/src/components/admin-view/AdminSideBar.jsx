@@ -1,4 +1,4 @@
-import { BadgeCheck, ChartNoAxesCombined, LayoutDashboard, ShoppingBasket } from "lucide-react";
+import { BadgeCheck, ChartNoAxesCombined, LayoutDashboard, ShoppingBagIcon, ShoppingBasket } from "lucide-react";
 import { Fragment } from "react"
 import { useNavigate } from "react-router-dom"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
@@ -11,13 +11,19 @@ const adminSideBarMenuItems = [
         icon : <LayoutDashboard />
     },
     {
-        id : 'products' , 
+        id : 'products', 
         label  :'Products',
         path : '/admin/products',
         icon : <ShoppingBasket />
     },
     {
-        id : 'orders' , 
+        id : 'clothes', 
+        label  :'Clothes ',
+        path : '/admin/clothes ',
+        icon : <ShoppingBagIcon />
+    },
+    {
+        id : 'orders', 
         label  :'Orders',
         path : '/admin/orders',
         icon : <BadgeCheck />
@@ -36,7 +42,8 @@ function MenuItems ({setOpen}){
             }} className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground text-xl">
                 {menuItem.icon }
                 <span>{menuItem.label}</span>
-            </div>)
+            </div>
+            )
         }
     </nav>
 }

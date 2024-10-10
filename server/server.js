@@ -12,6 +12,7 @@ const shopAddressRouter = require('./routes/shop/AddressRoutes');
 const shopSearchRouter = require('./routes/shop/SearchRoutes');
 const shopReviewRouter = require('./routes/shop/ReviewsRoutes');
 const commonFeatureRouter = require('./routes/common/FeaturesRoutes');
+const adminClothesCategoriesRouter = require('./routes/admin/CategoriesRoute');
 
 mongoose
     .connect('mongodb+srv://abdallahalhasan2:OSJdJTvmWVhAEUpG@cluster0.fpgxc.mongodb.net/myDatabase?retryWrites=true&w=majority')
@@ -43,6 +44,7 @@ app.use('/api/auth' , authRouter)
 
 // admin
 app.use('/api/admin/products' , adminProductsRouter)
+app.use('/api/admin/clothesCategories' , adminClothesCategoriesRouter)
 
 
 // shop 

@@ -1,65 +1,44 @@
-import ImageUpload from "@/components/admin-view/ImageUpload"
-import ProductTile from "@/components/admin-view/ProductTile"
-import Form from "@/components/common/Form"
+import AdminClothesCategories from "@/components/admin-view/AdminClothesCategories";
+import ImageUpload from "@/components/admin-view/ImageUpload";
+import Form from "@/components/common/Form";
+import PopularCategories from "@/components/shopping-view/HomePageSections/PopularCategories";
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { addProductFormElements } from "@/config"
-import { useToast } from "@/hooks/use-toast"
-import { addNewProduct, deleteProduct, editProduct, fetchAllProducts } from "@/store/admin/productSlice"
-import { Fragment, useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { addClothesCategoryFormElements } from "@/config";
+import { useToast } from "@/hooks/use-toast";
+import { addNewCategory, deleteCategory, editCategory, fetchAllCategory } from "@/store/admin/clothesCategories";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 
 
 const initialFormData = {
     image : null , 
     title : '',
-    description : '',
-    category : '' ,
-    brand : '',
-    price : '',
-    salePrice : '',
-    totalStook : '',
-    isBestSelling  : null,
-    isAdvantageous : null,
 
 }
 
-function AdminProducts() {
 
+function AdminClothes() {
     const [formData, setFormData] = useState(initialFormData)
+
     const [openCreateProductDialog, setOpenCreateProductDialog] = useState(false)
     const [imageFile , setImageFile] = useState(null);
     const[uploadedImageUrl , setUploadedImageUrl] = useState("");
     const [imageLoadingState, setImageLoadingState] = useState(false)
-    const {productList} = useSelector(state=> state.adminProducts);
-
     const [currentEditId, setCurrentEditId] = useState(null);
-
-
     const dispatch = useDispatch();
     const {toast} = useToast();
+    const {clothesCategory} = useSelector(state=> state.clothesCategory);
 
-
-    console.log(formData)
-
-
+    
     useEffect(() => {
-        dispatch(fetchAllProducts())
+        dispatch(fetchAllCategory())
     } , [dispatch])
 
-
-    function isFormValid() {
-        return Object.keys(formData)
-            .filter((currentKey) => currentKey !== "averageReview")
-            .map((key) => formData[key] !== "")
-            .every((item) => item);
-    }
-
     function handleDeleteProduct(getCurrentProductId){
-        dispatch(deleteProduct(getCurrentProductId)).then(data => {
+        dispatch(deleteCategory(getCurrentProductId)).then(data => {
         if(data?.payload?.success){
-            dispatch(fetchAllProducts());
+            dispatch(fetchAllCategory());
 
             toast({
                 title : "Product deleted successfully",
@@ -69,69 +48,75 @@ function AdminProducts() {
 
     }
 
-
-
     function onSubmit(event) {
         event.preventDefault();
         currentEditId !== null
             ? dispatch(
-                editProduct({
+                editCategory({
                     id: currentEditId,
                     formData,
                 })
-                ).then((data) => {
-                console.log(data, "edit");
-        
+                ).then((data) => {        
                 if (data?.payload?.success) {
-                    dispatch(fetchAllProducts());
+                    dispatch(fetchAllCategory());
                     setFormData(initialFormData);
                     setOpenCreateProductDialog(false);
                     setCurrentEditId(null);
                     toast({
-                        title: "Product edit successfully",
+                        title: "Category edit successfully",
                         });
                 }
                 })
             : dispatch(
-                addNewProduct({
+                addNewCategory({
                     ...formData,
                     image: uploadedImageUrl,
                 })
                 ).then((data) => {
                 if (data?.payload?.success) {
-                    dispatch(fetchAllProducts());
+                    dispatch(fetchAllCategory());
                     setOpenCreateProductDialog(false);
                     setImageFile(null);
                     setFormData(initialFormData);
                     toast({
-                    title: "Product add successfully",
+                    title: "Category add successfully",
                     });
                 }
                 });
-        }
+    }
 
-    return  <Fragment >
+    function isFormValid() {
+        return Object.keys(formData)
+            .filter((currentKey) => currentKey !== "averageReview")
+            .map((key) => formData[key] !== "")
+            .every((item) => item);
+    }
 
-            <div className="mb-5 flex justify-end w-full">
-                <Button onClick= {() => setOpenCreateProductDialog(true)}>Add New Product </Button>
-            </div>
+
+    return (
+
+        <div>
             
-
-            <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {
-                    productList && productList.length > 0 ? 
-                    productList.map(item => <ProductTile 
+            <div className="mb-5 flex justify-end w-full">
+                <Button onClick= {() => setOpenCreateProductDialog(true)}>Add New Category </Button>
+            </div>
+            <section className='py-12 bg-white'>
+                <div className='container mx-auto px-4 animate-fade-in-left'>
+                        <div className="flex flex-wrap justify-evenly items-center gap-5">
+                        {
+                    clothesCategory && clothesCategory.length > 0 ? 
+                    clothesCategory.map(item => <AdminClothesCategories 
                         key={item._id} 
-                        product={item}
+                        category={item}
                         setCurrentEditId={setCurrentEditId}
                         setOpenCreateProductDialog={setOpenCreateProductDialog}
                         setFormData={setFormData}
                         handleDeleteProduct = {handleDeleteProduct}
                         />) : null
-                }
-            </div>
-                {/* the nav bar  */}
-
+                }      
+                            </div>          
+                </div>
+            </section>
             <Sheet
                 open = {openCreateProductDialog}
                 onOpenChange={() => { 
@@ -151,33 +136,31 @@ function AdminProducts() {
                         </SheetHeader>
 
                         <ImageUpload  
-                            imageFile={imageFile} 
-                            setImageFile = {setImageFile} 
-                            uploadedImageUrl = { uploadedImageUrl} 
-                            setUploadedImageUrl = {setUploadedImageUrl}
-                            setImageLoadingState={setImageLoadingState}
-                            imageLoadingState={imageLoadingState}
-                            isEditMode={currentEditId !== null}
+                        imageFile={imageFile} 
+                        setImageFile = {setImageFile} 
+                        uploadedImageUrl = { uploadedImageUrl} 
+                        setUploadedImageUrl = {setUploadedImageUrl}
+                        setImageLoadingState={setImageLoadingState}
+                        imageLoadingState={imageLoadingState}
+                        isEditMode={currentEditId !== null}
 
                         />
 
                         <div className="py-6">
                             <Form 
-                                formControls={addProductFormElements}
+                                formControls={addClothesCategoryFormElements}
                                 formData={formData}
                                 setFormData={setFormData}
                                 buttonText={currentEditId !== null ? "Edit" : "Add"}
                                 onSubmit={onSubmit}
-                                // isBtnDisabled={!isFormValid()}
+                                isBtnDisabled={!isFormValid()}
                                 />
                         </div>
 
                 </SheetContent>
             </Sheet>
-
-
-        </Fragment>
-    
+        </div>
+    )
 }
 
-export default AdminProducts
+export default AdminClothes

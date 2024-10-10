@@ -1,3 +1,4 @@
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button"
 import { Card, CardContent, CardFooter } from "../ui/card"
 import PropTypes from "prop-types";
@@ -19,6 +20,18 @@ function ProductTile({
               alt={product.title}
               className="w-full h-[300px] object-cover rounded-t-lg"
             />
+              {
+                product?.isBestSelling === true ? <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
+                    Best Selling
+
+                </Badge> : null
+            }
+            {
+                product?.isAdvantageous === true ? <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-600">
+                    Advantageous
+
+                </Badge> : null
+            }
           </div>
             <CardContent>
                 <h2 className="text-xl font-bold mb-2 mt-2">{product?.title}</h2>

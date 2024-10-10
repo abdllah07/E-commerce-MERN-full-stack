@@ -16,6 +16,8 @@ import BestSellingProducts from '@/components/shopping-view/HomePageSections/Bes
 import { AdvantageousProductsItems, BestSellingProductsItems } from '@/config';
 import AllCategory from '@/components/shopping-view/HomePageSections/AllCategory';
 import ShoppingFooter from '@/components/shopping-view/HomePageSections/ShoppingFooter';
+import { fetchAllCategory } from '@/store/admin/clothesCategories';
+import { Opportunities } from '@/components/shopping-view/HomePageSections/Opportunities';
 
 // Array of categories with corresponding icons
 const categoriesWithIcons = [
@@ -51,6 +53,7 @@ const brandWithIcons = [
     { id: "burberry", label: "Burberry", icon: TagIcon },
     { id: "calvin-klein", label: "Calvin Klein", icon: WatchIcon }
 ];
+
 const flashCategoriesItems = [
     { label: 'Special for you', Icon: Store, link: '/special' },
     { label: 'You take it too', Icon: ShoppingBag, link: '/take-it' },
@@ -71,6 +74,8 @@ function ShoppingHome() {
     const {user} = useSelector(state => state.auth) // Get logged-in user data
     const [openProductDetailsDialog, setOpenProductDetailsDialog] = useState(false);
     const {featureImageList } = useSelector(state => state.commonFeature)
+
+    const {clothesCategory} = useSelector(state => state.clothesCategory)
 
    // Open the product details dialog when product details are fetched
     useEffect(() => {
@@ -120,6 +125,7 @@ function ShoppingHome() {
     
     useEffect(() => {
         dispatch(getFeatureImages());
+        dispatch(fetchAllCategory());
     } ,[dispatch])
     
     
@@ -155,6 +161,18 @@ function ShoppingHome() {
                     <ChevronRightIcon className='w-4 h-4' />
                 </Button>
             </div>
+
+            <section className='py-12 bg-gray-100'>
+                <div className="flex justify-center items-center mx-auto w-full mb-8">
+                    <StarIcon className="text-yellow-600 mr-4" />
+                    <h2 className="text-3xl font-bold text-center">Opportunities</h2>
+                </div>
+                <div className=' flex justify-center items-center gap-5 flex-wrap '>
+                    <Opportunities/>
+
+                </div>
+            </section>   
+
             {/* Shop by Category section */}
             <section className="py-12 bg-gray-50">
                 <div className="flex justify-center items-center mx-auto w-full mb-8">
@@ -254,7 +272,7 @@ function ShoppingHome() {
                         <StarIcon className='text-yellow-600 mr-4' />
                         <h2 className='text-3xl font-bold text-center'>Popular Clothes Categories</h2>
                     </div>
-                    <PopularCategories />
+                    <PopularCategories ListOfCategories={clothesCategory}/>
                 </div>
             </section>
 
